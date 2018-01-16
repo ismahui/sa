@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <com.mahui.sa.util.StateLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:error_layout="@layout/state_error_layout"
+        app:loadind_layout="@layout/state_loading_layout"
+        app:empty_layout="@layout/state_empty_layout"
+        app:no_network_layout="@layout/state_nonetwork_layout"
+        android:id="@+id/state_layout">
+
+    </com.mahui.sa.util.StateLayout>
+
+
+</FrameLayout>

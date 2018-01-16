@@ -66,7 +66,7 @@ public class StateLayout extends FrameLayout {
         changeState(mState);
     }
 
-    private void changeState(State state){
+    public void changeState(State state){
         removeAllView();
         ViewGroup viewGroup;
         switch (state){

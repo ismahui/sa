@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <LinearLayout
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            android:gravity="center"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:text="通讯录管理"
+        android:id="@+id/phone_manage"/>
 
-    <com.mahui.sa.util.StateLayout
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:error_layout="@layout/state_error_layout"
-        app:loadind_layout="@layout/state_loading_layout"
-        app:empty_layout="@layout/state_empty_layout"
-        app:no_network_layout="@layout/state_nonetwork_layout"
-        android:id="@+id/state_layout">
+        android:layout_height="wrap_content"
+        android:text="短信管理"
+        android:id="@+id/message_manage"/>
 
-    </com.mahui.sa.util.StateLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="图片管理"
+        android:id="@+id/photo_manage"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="备忘录管理"
+        android:id="@+id/backup_manage"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设置"
+        android:id="@+id/setting"/>
 
 
-</FrameLayout>
+
+
+</LinearLayout>

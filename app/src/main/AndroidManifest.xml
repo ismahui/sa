@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.WRITE_SMS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -26,6 +27,16 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data
                     android:host="sms_manage"
+                    android:scheme="sa"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".business.photo.view.PhotoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data
+                    android:host="photo_manage"
                     android:scheme="sa"/>
             </intent-filter>
         </activity>

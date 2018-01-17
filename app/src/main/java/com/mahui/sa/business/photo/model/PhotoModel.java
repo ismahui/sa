@@ -8,4 +8,6 @@ import java.io.Serializable;
 
 public class PhotoModel implements Serializable {
     public String imageUrl;
+    public boolean isShow;
+    public boolean isChecked;
 }

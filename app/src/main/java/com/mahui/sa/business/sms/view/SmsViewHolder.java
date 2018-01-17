@@ -7,7 +7,6 @@ import com.mahui.sa.R;
 import com.mahui.sa.business.sms.model.MessageModel;
 import com.mahui.sa.util.BaseViewHolder;
 import com.mahui.sa.util.SmsUtil;
-
 /**
  * Created by minghui on 2018/1/16.
  */

@@ -30,7 +30,11 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
         onActionBarViewCreated();
         onActionBarViewClick();
         initView();
+        initListener();
     }
+
+    protected abstract void initListener();
+
     public void onActionBarViewCreated(){
         mBack = findViewById(R.id.back);
         mActionBarLine = findViewById(R.id.action_bar_line);
@@ -46,7 +50,12 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
+        int id = v.getId();
+        switch (id){
+            case R.id.back:
+                super.onBackPressed();
+            break;
+        }
     }
 
     public void initView(){

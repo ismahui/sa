@@ -1,6 +1,7 @@
 package com.mahui.sa.business.photo.view;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.mahui.sa.R;
@@ -14,9 +15,11 @@ import com.mahui.sa.util.PhotoUtil;
 
 public class PhotoViewHolder extends BaseViewHolder {
     private ImageView mImageView;
+    private CheckBox mCheckBox;
     public PhotoViewHolder(View itemView) {
         super(itemView);
         mImageView = itemView.findViewById(R.id.image);
+        mCheckBox = itemView.findViewById(R.id.choose);
     }
 
     @Override
@@ -24,6 +27,12 @@ public class PhotoViewHolder extends BaseViewHolder {
         if (o instanceof PhotoModel){
             PhotoModel photoModel = (PhotoModel) o;
             mImageView.setImageBitmap(PhotoUtil.getBitmap(photoModel.imageUrl));
+            if (photoModel.isShow){
+                mCheckBox.setVisibility(View.VISIBLE);
+            }else {
+                mCheckBox.setVisibility(View.GONE);
+            }
+            mCheckBox.setChecked(photoModel.isChecked);
         }
     }
 }

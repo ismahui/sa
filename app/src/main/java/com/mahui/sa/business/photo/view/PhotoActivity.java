@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.mahui.sa.R;
@@ -30,17 +31,27 @@ public class PhotoActivity extends BaseActivity implements IPhotoView{
     private PhotoListViewAdapter mPhotoListViewAdapter;
     private PhotoPresenter mPhotoPresenter;
     private List<PhotoModel> mPhotoModels = new ArrayList<>();
+    private List<String> fileUrl = new ArrayList<>();
+    private Button mNotChooseAll;
+    private Button mChooseAll;
+    private Button mUpload;
+    private Button mDownload;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public void initView(){
         super.initView();
         mPhotoListView = findViewById(R.id.photo_list);
         mStateLayout = findViewById(R.id.state_layout);
+        mNotChooseAll = findViewById(R.id.not_choose);
+        mChooseAll = findViewById(R.id.choose_all);
+        mUpload = findViewById(R.id.upload);
+        mDownload = findViewById(R.id.download);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,4);
         mPhotoListView.setLayoutManager(gridLayoutManager);
         mPhotoListViewAdapter = new PhotoListViewAdapter(mPhotoModels,this);
@@ -48,6 +59,11 @@ public class PhotoActivity extends BaseActivity implements IPhotoView{
         mPhotoPresenter = new PhotoPresenter(this);
         mStateLayout.changeState(StateLayout.State.LOADING);
         mPhotoPresenter.getPhotoFromLocal();
+
+    }
+
+    @Override
+    protected void initListener() {
         mPhotoListView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mPhotoListView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -57,19 +73,81 @@ public class PhotoActivity extends BaseActivity implements IPhotoView{
 
             @Override
             public void onItemLongClick(View view, int position) {
-                // ...
-                Toast.makeText(getContext(),"这是长按点击事件",Toast.LENGTH_SHORT).show();
-                view.findViewById(R.id.choose).setVisibility(View.VISIBLE);
+                showCheckBox(position);
             }
         }));
+        mChooseAll.setOnClickListener(this);
+        mNotChooseAll.setOnClickListener(this);
+        mUpload.setOnClickListener(this);
+        mDownload.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        int id = v.getId();
+        switch (id){
+            case R.id.not_choose:
+                showAllNotChecked();
+                break;
+            case R.id.choose_all:
+                showAllChecked();
+                break;
+            case R.id.upload:
+                break;
+            case R.id.download:
+                break;
+        }
     }
 
     public void showCheckBox(int position){
-        for (int i=0;i<mPhotoListViewAdapter.getItemCount();i++){
-            
+        for (int i=0;i<mPhotoModels.size();i++){
+            PhotoModel photoModel =mPhotoModels.get(i);
+            photoModel.isShow = true;
+            if (i==position){
+                photoModel.isChecked = true;
+                fileUrl.add(photoModel.imageUrl);
+            }
+        }
+        mPhotoListViewAdapter.notifyDataSetChanged();
+    }
+
+    public void showAllChecked(){
+        if (!fileUrl.isEmpty()){
+            fileUrl.clear();
+        }
+        for (int i=0;i<mPhotoModels.size();i++){
+            PhotoModel photoModel =mPhotoModels.get(i);
+            photoModel.isShow = true;
+            photoModel.isChecked = true;
+            fileUrl.add(photoModel.imageUrl);
+        }
+        mPhotoListViewAdapter.notifyDataSetChanged();
+    }
+
+    public void showAllNotChecked(){
+        if (!fileUrl.isEmpty()){
+            fileUrl.clear();
+        }
+        for (int i=0;i<mPhotoModels.size();i++){
+            PhotoModel photoModel =mPhotoModels.get(i);
+            photoModel.isShow = true;
+            photoModel.isChecked = false;
+        }
+        if (!fileUrl.isEmpty()){
+            fileUrl.clear();
+        }
+        mPhotoListViewAdapter.notifyDataSetChanged();
+    }
+
+    public void hideCheckBox(){
+        for (int i=0;i<mPhotoModels.size();i++){
+            PhotoModel photoModel =mPhotoModels.get(i);
+            photoModel.isShow = true;
+            photoModel.isChecked = false;
         }
     }
+
 
     @Override
     public View onContentViewInit(LayoutInflater layoutInflater) {
@@ -96,6 +174,8 @@ public class PhotoActivity extends BaseActivity implements IPhotoView{
         if (list==null || list.isEmpty()){
             mStateLayout.changeState(StateLayout.State.EMPTY);
         } else {
+            mPhotoModels.addAll(list);
+            mPhotoModels.addAll(list);
             mPhotoModels.addAll(list);
             mStateLayout.changeState(StateLayout.State.ACCESS);
             mPhotoListViewAdapter.notifyDataSetChanged();

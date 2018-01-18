@@ -6,8 +6,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.widget.ImageView;
 
+import com.mahui.sa.R;
 import com.mahui.sa.business.photo.model.PhotoModel;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.download.ImageDownloader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +26,17 @@ public class PhotoUtil {
     public static Bitmap getBitmap(String imageUrl){
         Bitmap bitmap = BitmapFactory.decodeFile(imageUrl);
         return bitmap;
+    }
+
+    public static void loadLocalImage(ImageView targetView , String imageUrl){
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.drawable_loading)
+                .showImageOnFail(R.drawable.icon_error)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+        ImageLoader.getInstance().displayImage(ImageDownloader.Scheme.FILE.wrap(imageUrl),targetView,options);
     }
 
 

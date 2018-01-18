@@ -26,7 +26,7 @@ public class PhotoViewHolder extends BaseViewHolder {
     public void bindData(Object o, int position) {
         if (o instanceof PhotoModel){
             PhotoModel photoModel = (PhotoModel) o;
-            mImageView.setImageBitmap(PhotoUtil.getBitmap(photoModel.imageUrl));
+            PhotoUtil.loadLocalImage(mImageView,photoModel.imageUrl);
             if (photoModel.isShow){
                 mCheckBox.setVisibility(View.VISIBLE);
             }else {

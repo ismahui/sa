@@ -1,8 +1,8 @@
 package com.mahui.sa.util;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,7 +14,7 @@ import com.mahui.sa.R;
  * Created by minghui on 2018/1/17.
  */
 
-public abstract class BaseActivity extends Activity implements View.OnClickListener{
+public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener{
     private LinearLayout mContentLayout;
     private LinearLayout mLeftAcyionBarlayout;
     private LinearLayout mRightAcyionBarlayout;

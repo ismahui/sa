@@ -1,153 +1,58 @@
 package com.mahui.sa.business.photo.view;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.mahui.sa.R;
-import com.mahui.sa.business.photo.model.PhotoModel;
-import com.mahui.sa.business.photo.presenter.PhotoPresenter;
 import com.mahui.sa.util.BaseActivity;
-import com.mahui.sa.util.RecyclerItemClickListener;
-import com.mahui.sa.util.StateLayout;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.viewpagerindicator.TabPageIndicator;
+import com.viewpagerindicator.TitleProvider;
 
 /**
  * Created by minghui on 2018/1/17.
  */
 
-public class PhotoActivity extends BaseActivity implements IPhotoView{
-    private RecyclerView mPhotoListView;
-    private StateLayout mStateLayout;
-    private PhotoListViewAdapter mPhotoListViewAdapter;
-    private PhotoPresenter mPhotoPresenter;
-    private List<PhotoModel> mPhotoModels = new ArrayList<>();
-    private List<String> fileUrl = new ArrayList<>();
-    private Button mNotChooseAll;
-    private Button mChooseAll;
-    private Button mUpload;
-    private Button mDownload;
+public class PhotoActivity extends BaseActivity{
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-
-    @Override
-    public void initView(){
-        super.initView();
-        mPhotoListView = findViewById(R.id.photo_list);
-        mStateLayout = findViewById(R.id.state_layout);
-        mNotChooseAll = findViewById(R.id.not_choose);
-        mChooseAll = findViewById(R.id.choose_all);
-        mUpload = findViewById(R.id.upload);
-        mDownload = findViewById(R.id.download);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,4);
-        mPhotoListView.setLayoutManager(gridLayoutManager);
-        mPhotoListViewAdapter = new PhotoListViewAdapter(mPhotoModels,this);
-        mPhotoListView.setAdapter(mPhotoListViewAdapter);
-        mPhotoPresenter = new PhotoPresenter(this);
-        mStateLayout.changeState(StateLayout.State.LOADING);
-        mPhotoPresenter.getPhotoFromLocal();
-
-    }
+    private TabPageIndicator mTabPageIndicator;
+    private ViewPager mViewPager;
+    private FragmentPagerAdapter mFragmentPagerAdapter;
+    private static final String[] TITLE ={"本地","远程"};
 
     @Override
     protected void initListener() {
-        mPhotoListView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mPhotoListView, new RecyclerItemClickListener.OnItemClickListener() {
+        mTabPageIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                // ...
-                Toast.makeText(getContext(),"这是点击事件",Toast.LENGTH_SHORT).show();
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
             @Override
-            public void onItemLongClick(View view, int position) {
-                showCheckBox(position);
+            public void onPageSelected(int position) {
+
             }
-        }));
-        mChooseAll.setOnClickListener(this);
-        mNotChooseAll.setOnClickListener(this);
-        mUpload.setOnClickListener(this);
-        mDownload.setOnClickListener(this);
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        int id = v.getId();
-        switch (id){
-            case R.id.not_choose:
-                showAllNotChecked();
-                break;
-            case R.id.choose_all:
-                showAllChecked();
-                break;
-            case R.id.upload:
-                break;
-            case R.id.download:
-                break;
-        }
-    }
+    public void initView() {
+        super.initView();
+        mTabPageIndicator = findViewById(R.id.indicator);
+        mViewPager = findViewById(R.id.viewpager);
+        mFragmentPagerAdapter = new TabPageIndicatorAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mFragmentPagerAdapter);
+        mTabPageIndicator.setViewPager(mViewPager);
 
-    public void showCheckBox(int position){
-        for (int i=0;i<mPhotoModels.size();i++){
-            PhotoModel photoModel =mPhotoModels.get(i);
-            photoModel.isShow = true;
-            if (i==position){
-                photoModel.isChecked = true;
-                fileUrl.add(photoModel.imageUrl);
-            }
-        }
-        mPhotoListViewAdapter.notifyDataSetChanged();
     }
-
-    public void showAllChecked(){
-        if (!fileUrl.isEmpty()){
-            fileUrl.clear();
-        }
-        for (int i=0;i<mPhotoModels.size();i++){
-            PhotoModel photoModel =mPhotoModels.get(i);
-            photoModel.isShow = true;
-            photoModel.isChecked = true;
-            fileUrl.add(photoModel.imageUrl);
-        }
-        mPhotoListViewAdapter.notifyDataSetChanged();
-    }
-
-    public void showAllNotChecked(){
-        if (!fileUrl.isEmpty()){
-            fileUrl.clear();
-        }
-        for (int i=0;i<mPhotoModels.size();i++){
-            PhotoModel photoModel =mPhotoModels.get(i);
-            photoModel.isShow = true;
-            photoModel.isChecked = false;
-        }
-        if (!fileUrl.isEmpty()){
-            fileUrl.clear();
-        }
-        mPhotoListViewAdapter.notifyDataSetChanged();
-    }
-
-    public void hideCheckBox(){
-        for (int i=0;i<mPhotoModels.size();i++){
-            PhotoModel photoModel =mPhotoModels.get(i);
-            photoModel.isShow = true;
-            photoModel.isChecked = false;
-        }
-    }
-
 
     @Override
     public View onContentViewInit(LayoutInflater layoutInflater) {
@@ -159,60 +64,33 @@ public class PhotoActivity extends BaseActivity implements IPhotoView{
         return "图片管理";
     }
 
-    @Override
-    public void onActionBarViewCreated() {
-        super.onActionBarViewCreated();
-    }
-
-    @Override
-    public void onActionBarViewClick() {
-        super.onActionBarViewClick();
-    }
-
-    @Override
-    public void updateList(List<PhotoModel> list) {
-        if (list==null || list.isEmpty()){
-            mStateLayout.changeState(StateLayout.State.EMPTY);
-        } else {
-            mPhotoModels.addAll(list);
-            mPhotoModels.addAll(list);
-            mPhotoModels.addAll(list);
-            mStateLayout.changeState(StateLayout.State.ACCESS);
-            mPhotoListViewAdapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
-    }
-
-
-    private static class PhotoListViewAdapter extends RecyclerView.Adapter{
-        private List<PhotoModel> mData;
-        private Context mContext;
-        public PhotoListViewAdapter(List<PhotoModel> data ,Context context){
-            mData = data;
-            mContext = context;
-        }
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.photo_list_item,parent,false);
-            return new PhotoViewHolder(view);
+    private static class TabPageIndicatorAdapter extends FragmentPagerAdapter implements TitleProvider{
+        public TabPageIndicatorAdapter(FragmentManager fm) {
+            super(fm);
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            if (holder instanceof PhotoViewHolder){
-                ((PhotoViewHolder) holder).bindData(mData.get(position),position);
+        public Fragment getItem(int position) {
+            if (position == 0){
+                return new LocalPhotoFragment();
+            } else  {
+                return new RemotePhotoFragment();
             }
         }
 
         @Override
-        public int getItemCount() {
-            return mData.size();
+        public CharSequence getPageTitle(int position) {
+            return TITLE[position% TITLE.length];
+        }
+
+        @Override
+        public int getCount() {
+            return TITLE.length;
+        }
+
+        @Override
+        public String getTitle(int i) {
+            return TITLE[i% TITLE.length];
         }
     }
-
-
 }

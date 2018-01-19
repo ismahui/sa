@@ -28,4 +28,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.2.1'
     compile project(path: ':library')
     implementation files('libs/okhttp-3.9.1.jar')
+    implementation files('libs/rxjava-1.0.2.jar')
+    implementation files('libs/rxandroid-0.22.0.jar')
 }

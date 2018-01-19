@@ -14,9 +14,8 @@ import okhttp3.Response;
  */
 
 public class OkHttpManager {
-    private Object mLock = new Object();
     private OkHttpClient mOkHttpClient;
-    private OkHttpManager mOkHttpManager;
+    private static OkHttpManager mOkHttpManager;
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
@@ -26,11 +25,9 @@ public class OkHttpManager {
                 .writeTimeout(10, TimeUnit.SECONDS);
     }
 
-    public OkHttpManager getInstance() {
-        synchronized (mLock) {
-            if (mOkHttpManager == null) {
-                mOkHttpManager = new OkHttpManager();
-            }
+    public static synchronized OkHttpManager getInstance() {
+        if (mOkHttpManager == null) {
+            mOkHttpManager = new OkHttpManager();
         }
         return mOkHttpManager;
     }

@@ -34,7 +34,6 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
     private Button mNotChooseAll;
     private Button mChooseAll;
     private Button mUpload;
-    private Button mDownload;
 
     @Override
     public View onContentViewInit(LayoutInflater layoutInflater) {
@@ -48,7 +47,6 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
         mNotChooseAll = rootView.findViewById(R.id.not_choose);
         mChooseAll = rootView.findViewById(R.id.choose_all);
         mUpload = rootView.findViewById(R.id.upload);
-        mDownload = rootView.findViewById(R.id.download);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(),4);
         mPhotoListView.setLayoutManager(gridLayoutManager);
         mPhotoListViewAdapter = new PhotoListViewAdapter(mPhotoModels,this.getContext());
@@ -76,7 +74,6 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
         mChooseAll.setOnClickListener(this);
         mNotChooseAll.setOnClickListener(this);
         mUpload.setOnClickListener(this);
-        mDownload.setOnClickListener(this);
     }
 
     @Override
@@ -90,8 +87,6 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
                 showAllChecked();
                 break;
             case R.id.upload:
-                break;
-            case R.id.download:
                 break;
         }
     }

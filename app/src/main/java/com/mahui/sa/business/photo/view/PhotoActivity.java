@@ -10,7 +10,6 @@ import android.view.View;
 import com.mahui.sa.R;
 import com.mahui.sa.util.BaseActivity;
 import com.viewpagerindicator.TabPageIndicator;
-import com.viewpagerindicator.TitleProvider;
 
 /**
  * Created by minghui on 2018/1/17.
@@ -64,7 +63,7 @@ public class PhotoActivity extends BaseActivity{
         return "图片管理";
     }
 
-    private static class TabPageIndicatorAdapter extends FragmentPagerAdapter implements TitleProvider{
+    private static class TabPageIndicatorAdapter extends FragmentPagerAdapter{
         public TabPageIndicatorAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -88,9 +87,5 @@ public class PhotoActivity extends BaseActivity{
             return TITLE.length;
         }
 
-        @Override
-        public String getTitle(int i) {
-            return TITLE[i% TITLE.length];
-        }
     }
 }

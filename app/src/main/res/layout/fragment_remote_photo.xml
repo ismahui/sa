@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/photo_list"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="20dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_gravity="top|center">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全不选"
+            android:layout_weight="1"
+            android:id="@+id/not_choose"
+            android:layout_gravity="bottom"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全选"
+            android:layout_weight="1"
+            android:id="@+id/choose_all"
+            android:layout_gravity="bottom"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="恢复"
+            android:layout_weight="1"
+            android:id="@+id/download"
+            android:layout_gravity="bottom"/>
+
+    </LinearLayout>
+
+    <com.mahui.sa.util.StateLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/state_layout"
+        app:error_layout="@layout/state_error_layout"
+        app:empty_layout="@layout/state_empty_layout"
+        app:no_network_layout="@layout/state_nonetwork_layout"
+        app:loadind_layout="@layout/state_loading_layout">
+
+    </com.mahui.sa.util.StateLayout>
+
+</FrameLayout>

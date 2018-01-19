@@ -42,14 +42,6 @@
             android:id="@+id/upload"
             android:layout_gravity="bottom"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="恢复"
-            android:layout_weight="1"
-            android:id="@+id/download"
-            android:layout_gravity="bottom"/>
-
     </LinearLayout>
 
     <com.mahui.sa.util.StateLayout

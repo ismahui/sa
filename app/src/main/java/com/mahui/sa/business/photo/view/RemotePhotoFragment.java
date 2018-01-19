@@ -13,7 +13,7 @@ import com.mahui.sa.util.BaseFragment;
 public class RemotePhotoFragment extends BaseFragment {
     @Override
     public View onContentViewInit(LayoutInflater layoutInflater) {
-        return layoutInflater.inflate(R.layout.fragment_local_photo,null,false);
+        return layoutInflater.inflate(R.layout.fragment_remote_photo,null,false);
     }
 
     @Override

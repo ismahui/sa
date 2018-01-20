@@ -30,4 +30,5 @@ dependencies {
     implementation files('libs/okhttp-3.9.1.jar')
     implementation files('libs/rxjava-1.0.2.jar')
     implementation files('libs/rxandroid-0.22.0.jar')
+    implementation files('libs/okio-1.13.0.jar')
 }

@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.mahui.sa.R;
 import com.mahui.sa.business.photo.view.PhotoActivity;
+import com.mahui.sa.business.sms.view.SmsManageActivity;
 import com.mahui.sa.util.Nav;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.phone_manage:
                 break;
             case R.id.message_manage:
+                Nav.nav(this, SmsManageActivity.class,null);
                 break;
             case R.id.backup_manage:
                 break;

@@ -22,6 +22,11 @@ public class RemotePhotoFragment extends BaseFragment {
     }
 
     @Override
+    public void initData() {
+
+    }
+
+    @Override
     public void initListener() {
 
     }

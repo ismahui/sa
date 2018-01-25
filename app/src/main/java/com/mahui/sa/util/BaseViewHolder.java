@@ -11,9 +11,12 @@ import android.view.View;
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
     public BaseViewHolder(View itemView) {
         super(itemView);
+        initView(itemView);
     }
 
 
 
     public abstract void bindData(Object o ,int position);
+
+    public abstract void initView(View itemView);
 }

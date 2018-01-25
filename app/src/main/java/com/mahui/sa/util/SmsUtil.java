@@ -24,13 +24,16 @@ public class SmsUtil {
         ContentResolver cr = context.getContentResolver();
         Cursor cursor = cr.query(Uri.parse(Path.SMS_PATH), new String[]{"address", "date", "body", "type"},
                 null, null, null);
-        while(cursor.moveToNext()){
-            MessageModel sms = new MessageModel();
-            sms.address = cursor.getString(cursor.getColumnIndex("address"));
-            sms.date = cursor.getLong(cursor.getColumnIndex("date"));
-            sms.body = cursor.getString(cursor.getColumnIndex("body"));
-            sms.type = cursor.getString(cursor.getColumnIndex("type"));
-            smsList.add(sms);
+        if (cursor != null){
+            while(cursor.moveToNext()){
+                MessageModel sms = new MessageModel();
+                sms.address = cursor.getString(cursor.getColumnIndex("address"));
+                sms.date = cursor.getLong(cursor.getColumnIndex("date"));
+                sms.body = cursor.getString(cursor.getColumnIndex("body"));
+                sms.type = cursor.getString(cursor.getColumnIndex("type"));
+                smsList.add(sms);
+            }
+            cursor.close();
         }
         return smsList;
     }

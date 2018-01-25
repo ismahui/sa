@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.mahui.sa.R;
+import com.mahui.sa.business.phone.view.PhoneActivity;
 import com.mahui.sa.business.photo.view.PhotoActivity;
 import com.mahui.sa.business.sms.view.SmsManageActivity;
 import com.mahui.sa.util.Nav;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         switch (id){
             case R.id.phone_manage:
+                Nav.nav(this, PhoneActivity.class,null);
                 break;
             case R.id.message_manage:
                 Nav.nav(this, SmsManageActivity.class,null);

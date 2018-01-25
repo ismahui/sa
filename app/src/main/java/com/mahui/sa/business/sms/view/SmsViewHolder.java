@@ -18,9 +18,6 @@ public class SmsViewHolder extends BaseViewHolder {
 
     public SmsViewHolder(View itemView) {
         super(itemView);
-        mNickName = itemView.findViewById(R.id.nick_name);
-        mTime = itemView.findViewById(R.id.time);
-        mContent = itemView.findViewById(R.id.content);
     }
 
 
@@ -32,5 +29,12 @@ public class SmsViewHolder extends BaseViewHolder {
             mTime.setText(SmsUtil.UnixToDate(messageModel.date));
             mContent.setText(messageModel.body);
         }
+    }
+
+    @Override
+    public void initView(View itemView) {
+        mNickName = itemView.findViewById(R.id.nick_name);
+        mTime = itemView.findViewById(R.id.time);
+        mContent = itemView.findViewById(R.id.content);
     }
 }

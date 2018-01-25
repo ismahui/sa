@@ -52,9 +52,14 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
         mPhotoListViewAdapter = new PhotoListViewAdapter(mPhotoModels,this.getContext());
         mPhotoListView.setAdapter(mPhotoListViewAdapter);
         mPhotoPresenter = new PhotoPresenter(this);
+        changeState(StateLayout.State.LOADING);
+
+    }
+
+    @Override
+    public void initData() {
         mStateLayout.changeState(StateLayout.State.LOADING);
         mPhotoPresenter.getPhotoFromLocal();
-
     }
 
     @Override
@@ -156,6 +161,11 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
     @Override
     public Context getContext() {
         return getActivity().getBaseContext();
+    }
+
+    @Override
+    public void changeState(StateLayout.State state) {
+        mStateLayout.changeState(state);
     }
 
 

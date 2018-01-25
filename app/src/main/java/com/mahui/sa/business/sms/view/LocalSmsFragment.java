@@ -45,7 +45,11 @@ public class LocalSmsFragment extends BaseFragment implements ISmsView{
         mSmsListViewAdapter = new SmsListViewAdapter(mMessageModels,this.getActivity());
         mSmsListView.setAdapter(mSmsListViewAdapter);
         mSmsPresenter = new SmsPresenter(this);
-        mSmsPresenter.writeMessage(SmsUtil.fillData());
+        changeState(StateLayout.State.LOADING);
+    }
+
+    @Override
+    public void initData() {
         mSmsPresenter.readMessage();
     }
 
@@ -57,6 +61,11 @@ public class LocalSmsFragment extends BaseFragment implements ISmsView{
     @Override
     public Context getContext() {
         return getActivity().getBaseContext();
+    }
+
+    @Override
+    public void changeState(StateLayout.State state) {
+        mStateLayout.changeState(state);
     }
 
     @Override

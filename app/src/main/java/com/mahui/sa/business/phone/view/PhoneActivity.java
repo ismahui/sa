@@ -1,4 +1,4 @@
-package com.mahui.sa.business.sms.view;
+package com.mahui.sa.business.phone.view;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,15 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.mahui.sa.R;
+import com.mahui.sa.business.photo.view.LocalPhotoFragment;
+import com.mahui.sa.business.photo.view.RemotePhotoFragment;
 import com.mahui.sa.util.BaseActivity;
 import com.viewpagerindicator.TabPageIndicator;
 
-
 /**
- * Created by minghui on 2018/1/16.
+ * Created by minghui on 2018/1/23.
  */
 
-public class SmsManageActivity extends BaseActivity{
+public class PhoneActivity extends BaseActivity {
     private TabPageIndicator mTabPageIndicator;
     private ViewPager mViewPager;
     private FragmentPagerAdapter mFragmentPagerAdapter;
@@ -60,7 +61,7 @@ public class SmsManageActivity extends BaseActivity{
 
     @Override
     public String initActionBarTitle() {
-        return "短信管理";
+        return "通讯录管理";
     }
 
     private static class TabPageIndicatorAdapter extends FragmentPagerAdapter{
@@ -71,9 +72,9 @@ public class SmsManageActivity extends BaseActivity{
         @Override
         public Fragment getItem(int position) {
             if (position == 0){
-                return new LocalSmsFragment();
+                return new LocalPhoneFragment();
             } else  {
-                return new RemoteSmsFragment();
+                return new RemotePhotoFragment();
             }
         }
 

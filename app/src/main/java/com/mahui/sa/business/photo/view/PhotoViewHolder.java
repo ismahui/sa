@@ -18,8 +18,6 @@ public class PhotoViewHolder extends BaseViewHolder {
     private CheckBox mCheckBox;
     public PhotoViewHolder(View itemView) {
         super(itemView);
-        mImageView = itemView.findViewById(R.id.image);
-        mCheckBox = itemView.findViewById(R.id.choose);
     }
 
     @Override
@@ -34,5 +32,11 @@ public class PhotoViewHolder extends BaseViewHolder {
             }
             mCheckBox.setChecked(photoModel.isChecked);
         }
+    }
+
+    @Override
+    public void initView(View itemView) {
+        mImageView = itemView.findViewById(R.id.image);
+        mCheckBox = itemView.findViewById(R.id.choose);
     }
 }

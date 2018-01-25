@@ -3,6 +3,7 @@ package com.mahui.sa.business.sms.view;
 import android.content.Context;
 
 import com.mahui.sa.business.sms.model.MessageModel;
+import com.mahui.sa.util.StateLayout;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ import java.util.List;
 public interface ISmsView {
     void updateList(List<MessageModel> list);
     Context getContext();
+    void changeState(StateLayout.State state);
 }

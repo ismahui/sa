@@ -27,6 +27,7 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        initData();
         initListener();
     }
 
@@ -35,4 +36,6 @@ public abstract class BaseFragment extends Fragment {
     public abstract void initView(View rootView);
 
     public abstract void initListener();
+
+    public abstract void initData();
 }

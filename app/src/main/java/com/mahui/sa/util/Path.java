@@ -7,4 +7,5 @@ package com.mahui.sa.util;
 public class Path {
     public static String SMS_PATH="content://sms";
     public static String MMS_SMS_PATH="content://mms-sms/conversations?simple=true";
+    public static String PHONE_PATH="content://com.android.contacts/contacts";
 }

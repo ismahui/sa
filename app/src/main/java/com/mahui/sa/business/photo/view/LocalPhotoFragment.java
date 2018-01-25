@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.mahui.sa.R;
 import com.mahui.sa.business.photo.model.PhotoModel;
@@ -67,8 +66,10 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
         mPhotoListView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mPhotoListView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                // ...
-                Toast.makeText(getContext(),"这是点击事件",Toast.LENGTH_SHORT).show();
+                PhotoModel photoModel = mPhotoModels.get(position);
+                PhotoDeatilDialog photoDeatilDialog = new PhotoDeatilDialog(LocalPhotoFragment.this.getActivity(),photoModel.imageUrl, R.style.MyDialog);
+                photoDeatilDialog.setAttributes(getActivity().getWindowManager());
+                photoDeatilDialog.show();
             }
 
             @Override

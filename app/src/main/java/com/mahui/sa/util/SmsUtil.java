@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.ContactsContract;
 
 import com.mahui.sa.business.sms.model.MessageModel;
 
@@ -19,11 +20,11 @@ import java.util.List;
  */
 
 public class SmsUtil {
-    public static List<MessageModel> readMessage(Context context){
+    public static List<MessageModel> readMessage(Context context ,int currentOffset){
         List<MessageModel> smsList= new ArrayList<>();
         ContentResolver cr = context.getContentResolver();
         Cursor cursor = cr.query(Uri.parse(Path.SMS_PATH), new String[]{"address", "date", "body", "type"},
-                null, null, null);
+                null, null, ContactsContract.Contacts._ID + " limit " + PageConfig.PAGE_SIZE + " offset " + currentOffset);
         if (cursor != null){
             while(cursor.moveToNext()){
                 MessageModel sms = new MessageModel();

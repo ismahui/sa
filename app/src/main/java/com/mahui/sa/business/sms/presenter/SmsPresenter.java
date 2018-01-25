@@ -3,6 +3,7 @@ package com.mahui.sa.business.sms.presenter;
 
 import com.mahui.sa.business.sms.model.MessageModel;
 import com.mahui.sa.business.sms.view.ISmsView;
+import com.mahui.sa.util.PageConfig;
 import com.mahui.sa.util.SmsUtil;
 import com.mahui.sa.util.StateLayout;
 
@@ -26,12 +27,12 @@ public class SmsPresenter {
        mISmsView = smsView;
     }
 
-    public void readMessage(){
+    public void readMessage(final int currentPage){
         Observable
                 .create(new OnSubscribe<List<MessageModel>>() {
                     @Override
                     public void call(Subscriber<? super List<MessageModel>> subscriber) {
-                        List<MessageModel> messageModels =SmsUtil.readMessage(mISmsView.getContext());
+                        List<MessageModel> messageModels =SmsUtil.readMessage(mISmsView.getContext(),(currentPage-1)* PageConfig.PAGE_SIZE);
                         subscriber.onNext(messageModels);
                         subscriber.onCompleted();
                     }
@@ -57,8 +58,6 @@ public class SmsPresenter {
                             if(messageModels.size()>0){
                                 mISmsView.changeState(StateLayout.State.ACCESS);
                                 mISmsView.updateList(messageModels);
-                            }else {
-                                mISmsView.changeState(StateLayout.State.EMPTY);
                             }
                         }
                     }

@@ -28,7 +28,6 @@ public class LocalPhoneFragment extends BaseFragment implements IPhoneView ,Pagi
     private StateLayout mStateLayout;
     private List<PhoneModel> mPhoneModels = new ArrayList<>();
     private PhonePresenter mPhonePresenter = new PhonePresenter(this);
-    private int mCurrentPage = 1;
 
     @Override
     public View onContentViewInit(LayoutInflater layoutInflater) {
@@ -50,7 +49,7 @@ public class LocalPhoneFragment extends BaseFragment implements IPhoneView ,Pagi
 
     @Override
     public void initData() {
-        mPhonePresenter.getPhoneFromeLocal(mCurrentPage++);
+        mPhonePresenter.getPhoneFromeLocal(1);
     }
 
     @Override
@@ -81,7 +80,7 @@ public class LocalPhoneFragment extends BaseFragment implements IPhoneView ,Pagi
 
     @Override
     public void loadNextPage(int page) {
-        mPhonePresenter.getPhoneFromeLocal(mCurrentPage++);
+        mPhonePresenter.getPhoneFromeLocal(page);
     }
 
     private static class PhoneAdapter extends RecyclerView.Adapter {

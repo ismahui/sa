@@ -11,7 +11,7 @@ import com.mahui.sa.R;
 import com.mahui.sa.business.sms.model.MessageModel;
 import com.mahui.sa.business.sms.presenter.SmsPresenter;
 import com.mahui.sa.util.BaseFragment;
-import com.mahui.sa.util.SmsUtil;
+import com.mahui.sa.util.PagingRecycleView;
 import com.mahui.sa.util.StateLayout;
 
 import java.util.ArrayList;
@@ -21,9 +21,9 @@ import java.util.List;
  * Created by minghui on 2018/1/23.
  */
 
-public class LocalSmsFragment extends BaseFragment implements ISmsView{
+public class LocalSmsFragment extends BaseFragment implements ISmsView ,PagingRecycleView.IPageLoad{
 
-    private RecyclerView mSmsListView;
+    private PagingRecycleView mSmsListView;
     private StateLayout mStateLayout;
     private SmsListViewAdapter mSmsListViewAdapter;
     private List<MessageModel> mMessageModels = new ArrayList<>();
@@ -46,11 +46,13 @@ public class LocalSmsFragment extends BaseFragment implements ISmsView{
         mSmsListView.setAdapter(mSmsListViewAdapter);
         mSmsPresenter = new SmsPresenter(this);
         changeState(StateLayout.State.LOADING);
+        mSmsListView.setIPageLoad(this);
+
     }
 
     @Override
     public void initData() {
-        mSmsPresenter.readMessage();
+        mSmsPresenter.readMessage(1);
     }
 
     @Override
@@ -70,13 +72,18 @@ public class LocalSmsFragment extends BaseFragment implements ISmsView{
 
     @Override
     public void updateList(List<MessageModel> list) {
-        if (list==null || list.isEmpty()){
+        if (mSmsListViewAdapter.getItemCount()==0 && (list==null || list.isEmpty())){
             mStateLayout.changeState(StateLayout.State.EMPTY);
         } else {
             mMessageModels.addAll(list);
             mStateLayout.changeState(StateLayout.State.ACCESS);
             mSmsListViewAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void loadNextPage(int page) {
+        mSmsPresenter.readMessage(page);
     }
 
 

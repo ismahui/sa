@@ -12,7 +12,7 @@ import android.util.AttributeSet;
  */
 
 public class PagingRecycleView extends RecyclerView {
-    private int mCurrentPage;
+    private int mCurrentPage =2;
     private IPageLoad mIPageLoad;
     /**
      * 滚动方向

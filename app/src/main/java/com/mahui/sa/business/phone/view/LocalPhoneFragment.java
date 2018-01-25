@@ -11,6 +11,7 @@ import com.mahui.sa.R;
 import com.mahui.sa.business.phone.model.PhoneModel;
 import com.mahui.sa.business.phone.presenter.PhonePresenter;
 import com.mahui.sa.util.BaseFragment;
+import com.mahui.sa.util.PagingRecycleView;
 import com.mahui.sa.util.StateLayout;
 
 import java.util.ArrayList;
@@ -20,13 +21,14 @@ import java.util.List;
  * Created by minghui on 2018/1/23.
  */
 
-public class LocalPhoneFragment extends BaseFragment implements IPhoneView {
+public class LocalPhoneFragment extends BaseFragment implements IPhoneView ,PagingRecycleView.IPageLoad {
 
-    private RecyclerView mRecyclerView;
+    private PagingRecycleView mRecyclerView;
     private PhoneAdapter mPhoneAdapter;
     private StateLayout mStateLayout;
     private List<PhoneModel> mPhoneModels = new ArrayList<>();
     private PhonePresenter mPhonePresenter = new PhonePresenter(this);
+    private int mCurrentPage = 1;
 
     @Override
     public View onContentViewInit(LayoutInflater layoutInflater) {
@@ -42,12 +44,13 @@ public class LocalPhoneFragment extends BaseFragment implements IPhoneView {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mPhoneAdapter);
+        mRecyclerView.setIPageLoad(this);
         changeState(StateLayout.State.LOADING);
     }
 
     @Override
     public void initData() {
-        mPhonePresenter.getPhoneFromeLocal();
+        mPhonePresenter.getPhoneFromeLocal(mCurrentPage++);
     }
 
     @Override
@@ -62,7 +65,7 @@ public class LocalPhoneFragment extends BaseFragment implements IPhoneView {
 
     @Override
     public void updateList(List<PhoneModel> phoneModelList) {
-        if (phoneModelList==null || phoneModelList.isEmpty()){
+        if (mPhoneAdapter.getItemCount()==0 && (phoneModelList==null || phoneModelList.isEmpty())){
             mStateLayout.changeState(StateLayout.State.EMPTY);
         } else {
             mPhoneModels.addAll(phoneModelList);
@@ -74,6 +77,11 @@ public class LocalPhoneFragment extends BaseFragment implements IPhoneView {
     @Override
     public Context getContext() {
         return getActivity().getBaseContext();
+    }
+
+    @Override
+    public void loadNextPage(int page) {
+        mPhonePresenter.getPhoneFromeLocal(mCurrentPage++);
     }
 
     private static class PhoneAdapter extends RecyclerView.Adapter {

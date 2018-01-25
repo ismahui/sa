@@ -3,6 +3,7 @@ package com.mahui.sa.business.phone.presenter;
 
 import com.mahui.sa.business.phone.model.PhoneModel;
 import com.mahui.sa.business.phone.view.IPhoneView;
+import com.mahui.sa.util.PageConfig;
 import com.mahui.sa.util.PhoneUtil;
 import com.mahui.sa.util.StateLayout;
 
@@ -26,12 +27,12 @@ public class PhonePresenter {
         mIPhoneView = iPhoneView;
     }
 
-    public void getPhoneFromeLocal(){
+    public void getPhoneFromeLocal(final int currentPage){
         rx.Observable
                 .create(new OnSubscribe<List<PhoneModel>>() {
                     @Override
                     public void call(Subscriber<? super List<PhoneModel>> subscriber) {
-                        List<PhoneModel> phoneModels = PhoneUtil.readPhoneNumberFromLocal(mIPhoneView.getContext());
+                        List<PhoneModel> phoneModels = PhoneUtil.readPhoneNumberFromLocal(mIPhoneView.getContext(),(currentPage-1)* PageConfig.PAGE_SIZE);
                         subscriber.onNext(phoneModels);
                         subscriber.onCompleted();
                     }
@@ -57,8 +58,6 @@ public class PhonePresenter {
                             if (phoneModels.size()>0){
                                 mIPhoneView.changeState(StateLayout.State.ACCESS);
                                 mIPhoneView.updateList(phoneModels);
-                            } else{
-                                mIPhoneView.changeState(StateLayout.State.EMPTY);
                             }
                         }
                     }

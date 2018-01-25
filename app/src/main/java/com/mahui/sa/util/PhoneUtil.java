@@ -16,14 +16,14 @@ import java.util.List;
 
 public class PhoneUtil {
 
-    public static List<PhoneModel> readPhoneNumberFromLocal(Context context) {
+    public static List<PhoneModel> readPhoneNumberFromLocal(Context context ,int currentOffset) {
         List<PhoneModel> phoneModels = new ArrayList<>();
         String[] projection = new String[]{
                 ContactsContract.Contacts._ID,
                 ContactsContract.Contacts.DISPLAY_NAME
         };
         //根据Uri查询相应的ContentProvider，cursor为获取到的数据集
-        Cursor cursor = context.getContentResolver().query(Uri.parse(Path.PHONE_PATH), projection, null, null, null);
+        Cursor cursor = context.getContentResolver().query(Uri.parse(Path.PHONE_PATH), projection, null, null, ContactsContract.Contacts._ID + " limit " + PageConfig.PAGE_SIZE + " offset " + currentOffset);
         if (cursor != null && cursor.moveToFirst()) {
             int i = 0;
             do {

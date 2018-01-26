@@ -5,7 +5,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.mahui.sa.R;
-import com.mahui.sa.business.photo.model.PhotoModel;
+import com.mahui.sa.business.photo.model.PhotoResponse;
 import com.mahui.sa.util.BaseViewHolder;
 import com.mahui.sa.util.PhotoUtil;
 
@@ -22,15 +22,15 @@ public class PhotoViewHolder extends BaseViewHolder {
 
     @Override
     public void bindData(Object o, int position) {
-        if (o instanceof PhotoModel){
-            PhotoModel photoModel = (PhotoModel) o;
-            PhotoUtil.loadLocalImage(mImageView,photoModel.imageUrl);
-            if (photoModel.isShow){
+        if (o instanceof PhotoResponse){
+            PhotoResponse photoResponse = (PhotoResponse) o;
+            PhotoUtil.loadLocalImage(mImageView, photoResponse.imageUrl);
+            if (photoResponse.isShow){
                 mCheckBox.setVisibility(View.VISIBLE);
             }else {
                 mCheckBox.setVisibility(View.GONE);
             }
-            mCheckBox.setChecked(photoModel.isChecked);
+            mCheckBox.setChecked(photoResponse.isChecked);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.mahui.sa.business.photo.presenter;
 
-import com.mahui.sa.business.photo.model.PhotoModel;
+import com.mahui.sa.business.photo.model.PhotoResponse;
 import com.mahui.sa.business.photo.view.IPhotoView;
 import com.mahui.sa.util.PhotoUtil;
 import com.mahui.sa.util.StateLayout;
@@ -10,7 +10,6 @@ import java.util.List;
 import rx.Observable;
 import rx.Observable.OnSubscribe;
 import rx.Observer;
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -28,17 +27,17 @@ public class PhotoPresenter {
 
     public void getPhotoFromLocal() {
         Observable
-                .create(new OnSubscribe<List<PhotoModel>>() {
+                .create(new OnSubscribe<List<PhotoResponse>>() {
                     @Override
-                    public void call(Subscriber<? super List<PhotoModel>> subscriber) {
-                        List<PhotoModel> photoModels = PhotoUtil.getPhotoFromLocal(mIPhotoView.getContext());
-                        subscriber.onNext(photoModels);
+                    public void call(Subscriber<? super List<PhotoResponse>> subscriber) {
+                        List<PhotoResponse> photoResponses = PhotoUtil.getPhotoFromLocal(mIPhotoView.getContext());
+                        subscriber.onNext(photoResponses);
                         subscriber.onCompleted();
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<PhotoModel>>() {
+                .subscribe(new Observer<List<PhotoResponse>>() {
                     @Override
                     public void onCompleted() {
 
@@ -52,11 +51,11 @@ public class PhotoPresenter {
                     }
 
                     @Override
-                    public void onNext(List<PhotoModel> photoModels) {
+                    public void onNext(List<PhotoResponse> photoResponses) {
                         if (mIPhotoView!=null){
-                            if(photoModels.size()>0){
+                            if(photoResponses.size()>0){
                                 mIPhotoView.changeState(StateLayout.State.ACCESS);
-                                mIPhotoView.updateList(photoModels);
+                                mIPhotoView.updateList(photoResponses);
                             }else {
                                 mIPhotoView.changeState(StateLayout.State.EMPTY);
                             }

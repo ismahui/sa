@@ -31,4 +31,10 @@ dependencies {
     implementation files('libs/rxjava-1.0.2.jar')
     implementation files('libs/rxandroid-0.22.0.jar')
     implementation files('libs/okio-1.13.0.jar')
+    implementation files('libs/gson-2.2.2.jar')
+    implementation files('libs/ezmorph-1.0.6.jar')
+    implementation files('libs/commons-logging-1.1.1.jar')
+    implementation files('libs/commons-logging-1.1.1 (1).jar')
+    implementation files('libs/commons-collections-3.2.1.jar')
+    implementation files('libs/commons-beanutils-1.8.0.jar')
 }

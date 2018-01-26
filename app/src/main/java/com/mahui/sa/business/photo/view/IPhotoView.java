@@ -2,7 +2,7 @@ package com.mahui.sa.business.photo.view;
 
 import android.content.Context;
 
-import com.mahui.sa.business.photo.model.PhotoModel;
+import com.mahui.sa.business.photo.model.PhotoResponse;
 import com.mahui.sa.util.StateLayout;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public interface IPhotoView {
-    void updateList(List<PhotoModel> list);
+    void updateList(List<PhotoResponse> list);
     Context getContext();
     void changeState(StateLayout.State state);
 }

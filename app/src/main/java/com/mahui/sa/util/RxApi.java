@@ -11,24 +11,10 @@ import rx.schedulers.Schedulers;
 
 public class RxApi {
 
-    public static void get(Subscriber<Object> subscriber) {
-        Observable
-                .create(new Observable.OnSubscribe<Object>() {
-                    @Override
-                    public void call(Subscriber<? super Object> subscriber) {
-                        try {
-                            subscriber.onNext(OkHttpManager.getInstance().get(""));
-                        } catch (Exception e) {
-                            subscriber.onError(e);
-                        }
-                    }
-                })
-                .subscribeOn(Schedulers.io())
+    public static void execute(Observable<Object> observable,Subscriber<Object> subscriber) {
+        observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
-    public static void post(Observable observable, Subscriber subscriber) {
-
-    }
 }

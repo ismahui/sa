@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.mahui.sa.R;
-import com.mahui.sa.business.photo.model.PhotoModel;
+import com.mahui.sa.business.photo.model.PhotoResponse;
 import com.mahui.sa.business.photo.presenter.PhotoPresenter;
 import com.mahui.sa.util.BaseFragment;
 import com.mahui.sa.util.RecyclerItemClickListener;
@@ -28,7 +28,7 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
     private StateLayout mStateLayout;
     private PhotoListViewAdapter mPhotoListViewAdapter;
     private PhotoPresenter mPhotoPresenter;
-    private List<PhotoModel> mPhotoModels = new ArrayList<>();
+    private List<PhotoResponse> mPhotoResponses = new ArrayList<>();
     private List<String> fileUrl = new ArrayList<>();
     private Button mNotChooseAll;
     private Button mChooseAll;
@@ -48,7 +48,7 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
         mUpload = rootView.findViewById(R.id.upload);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(),4);
         mPhotoListView.setLayoutManager(gridLayoutManager);
-        mPhotoListViewAdapter = new PhotoListViewAdapter(mPhotoModels,this.getContext());
+        mPhotoListViewAdapter = new PhotoListViewAdapter(mPhotoResponses,this.getContext());
         mPhotoListView.setAdapter(mPhotoListViewAdapter);
         mPhotoPresenter = new PhotoPresenter(this);
         changeState(StateLayout.State.LOADING);
@@ -66,8 +66,8 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
         mPhotoListView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mPhotoListView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                PhotoModel photoModel = mPhotoModels.get(position);
-                PhotoDeatilDialog photoDeatilDialog = new PhotoDeatilDialog(LocalPhotoFragment.this.getActivity(),photoModel.imageUrl, R.style.MyDialog);
+                PhotoResponse photoResponse = mPhotoResponses.get(position);
+                PhotoDeatilDialog photoDeatilDialog = new PhotoDeatilDialog(LocalPhotoFragment.this.getActivity(), photoResponse.imageUrl, R.style.MyDialog);
                 photoDeatilDialog.setAttributes(getActivity().getWindowManager());
                 photoDeatilDialog.show();
             }
@@ -98,12 +98,12 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
     }
 
     public void showCheckBox(int position){
-        for (int i=0;i<mPhotoModels.size();i++){
-            PhotoModel photoModel =mPhotoModels.get(i);
-            photoModel.isShow = true;
+        for (int i = 0; i< mPhotoResponses.size(); i++){
+            PhotoResponse photoResponse = mPhotoResponses.get(i);
+            photoResponse.isShow = true;
             if (i==position){
-                photoModel.isChecked = true;
-                fileUrl.add(photoModel.imageUrl);
+                photoResponse.isChecked = true;
+                fileUrl.add(photoResponse.imageUrl);
             }
         }
         mPhotoListViewAdapter.notifyDataSetChanged();
@@ -113,11 +113,11 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
         if (!fileUrl.isEmpty()){
             fileUrl.clear();
         }
-        for (int i=0;i<mPhotoModels.size();i++){
-            PhotoModel photoModel =mPhotoModels.get(i);
-            photoModel.isShow = true;
-            photoModel.isChecked = true;
-            fileUrl.add(photoModel.imageUrl);
+        for (int i = 0; i< mPhotoResponses.size(); i++){
+            PhotoResponse photoResponse = mPhotoResponses.get(i);
+            photoResponse.isShow = true;
+            photoResponse.isChecked = true;
+            fileUrl.add(photoResponse.imageUrl);
         }
         mPhotoListViewAdapter.notifyDataSetChanged();
     }
@@ -126,10 +126,10 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
         if (!fileUrl.isEmpty()){
             fileUrl.clear();
         }
-        for (int i=0;i<mPhotoModels.size();i++){
-            PhotoModel photoModel =mPhotoModels.get(i);
-            photoModel.isShow = true;
-            photoModel.isChecked = false;
+        for (int i = 0; i< mPhotoResponses.size(); i++){
+            PhotoResponse photoResponse = mPhotoResponses.get(i);
+            photoResponse.isShow = true;
+            photoResponse.isChecked = false;
         }
         if (!fileUrl.isEmpty()){
             fileUrl.clear();
@@ -138,22 +138,22 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
     }
 
     public void hideCheckBox(){
-        for (int i=0;i<mPhotoModels.size();i++){
-            PhotoModel photoModel =mPhotoModels.get(i);
-            photoModel.isShow = true;
-            photoModel.isChecked = false;
+        for (int i = 0; i< mPhotoResponses.size(); i++){
+            PhotoResponse photoResponse = mPhotoResponses.get(i);
+            photoResponse.isShow = true;
+            photoResponse.isChecked = false;
         }
     }
 
 
     @Override
-    public void updateList(List<PhotoModel> list) {
+    public void updateList(List<PhotoResponse> list) {
         if (list==null || list.isEmpty()){
             mStateLayout.changeState(StateLayout.State.EMPTY);
         } else {
-            mPhotoModels.addAll(list);
-            mPhotoModels.addAll(list);
-            mPhotoModels.addAll(list);
+            mPhotoResponses.addAll(list);
+            mPhotoResponses.addAll(list);
+            mPhotoResponses.addAll(list);
             mStateLayout.changeState(StateLayout.State.ACCESS);
             mPhotoListViewAdapter.notifyDataSetChanged();
         }
@@ -171,9 +171,9 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
 
 
     private static class PhotoListViewAdapter extends RecyclerView.Adapter{
-        private List<PhotoModel> mData;
+        private List<PhotoResponse> mData;
         private Context mContext;
-        public PhotoListViewAdapter(List<PhotoModel> data ,Context context){
+        public PhotoListViewAdapter(List<PhotoResponse> data , Context context){
             mData = data;
             mContext = context;
         }

@@ -9,7 +9,7 @@ import android.provider.MediaStore;
 import android.widget.ImageView;
 
 import com.mahui.sa.R;
-import com.mahui.sa.business.photo.model.PhotoModel;
+import com.mahui.sa.business.photo.model.PhotoResponse;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
@@ -40,8 +40,8 @@ public class PhotoUtil {
     }
 
 
-    public static List<PhotoModel> getPhotoFromLocal(Context context){
-        List<PhotoModel> list = new ArrayList<>();
+    public static List<PhotoResponse> getPhotoFromLocal(Context context){
+        List<PhotoResponse> list = new ArrayList<>();
         Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] projImage = { MediaStore.Images.Media._ID
                 , MediaStore.Images.Media.DATA
@@ -55,10 +55,10 @@ public class PhotoUtil {
 
         if(mCursor!=null){
             while (mCursor.moveToNext()) {
-                PhotoModel photoModel = new PhotoModel();
+                PhotoResponse photoResponse = new PhotoResponse();
                 // 获取图片的路径
-                photoModel.imageUrl = mCursor.getString(mCursor.getColumnIndex(MediaStore.Images.Media.DATA));
-                list.add(photoModel);
+                photoResponse.imageUrl = mCursor.getString(mCursor.getColumnIndex(MediaStore.Images.Media.DATA));
+                list.add(photoResponse);
             }
             mCursor.close();
         }

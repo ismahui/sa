@@ -1,5 +1,6 @@
 package com.mahui.sa.business.photo.view;
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.mahui.sa.R;
-import com.mahui.sa.business.phone.view.LocalPhoneFragment;
-import com.mahui.sa.business.phone.view.RemotePhoneFragment;
 import com.mahui.sa.util.BaseActivity;
 import com.viewpagerindicator.TabPageIndicator;
 
@@ -89,5 +88,10 @@ public class PhotoActivity extends BaseActivity{
             return TITLE.length;
         }
 
+    }
+
+    @Override
+    public int initActionBarColor() {
+        return Color.BLUE;
     }
 }

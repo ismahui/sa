@@ -7,9 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mahui.sa.R;
@@ -26,12 +28,15 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     private TextView mTitle;
     private TextView mBack;
     private LayoutInflater mLayoutInflater;
+    private RelativeLayout mActionBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         if (isNeedImmersion()) {
+            ViewGroup rootView = (ViewGroup) this.getWindow().getDecorView().findViewById(android.R.id.content);
+            rootView.setPadding(0, getStatusBarHeight(), 0, 0);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     //5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色
@@ -42,9 +47,9 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
                             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
                     decorView.setSystemUiVisibility(option);
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    window.setStatusBarColor(Color.TRANSPARENT);
+                    window.setStatusBarColor(initActionBarColor());
                     //导航栏颜色也可以正常设置
-                    window.setNavigationBarColor(Color.TRANSPARENT);
+                    window.setNavigationBarColor(initActionBarColor());
                 } else {
                     Window window = this.getWindow();
                     WindowManager.LayoutParams attributes = window.getAttributes();
@@ -65,6 +70,8 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     protected abstract void initListener();
 
     public void onActionBarViewCreated() {
+        mActionBar = findViewById(R.id.actionbar);
+        mActionBar.setBackgroundColor(initActionBarColor());
         mBack = findViewById(R.id.back);
         mActionBarLine = findViewById(R.id.action_bar_line);
         mLeftAcyionBarlayout = findViewById(R.id.left_panel);
@@ -99,5 +106,23 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
 
     public boolean isNeedImmersion() {
         return true;
+    }
+
+    public int initActionBarColor(){
+        return Color.WHITE;
+    }
+
+    /**
+     * 利用反射获取状态栏高度
+     * @return
+     */
+    public int getStatusBarHeight() {
+        int result = 0;
+        //获取状态栏高度的资源id
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 }

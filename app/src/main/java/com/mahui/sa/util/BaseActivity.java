@@ -35,7 +35,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         if (isNeedImmersion()) {
-            ViewGroup rootView = (ViewGroup) this.getWindow().getDecorView().findViewById(android.R.id.content);
+            ViewGroup rootView = this.getWindow().getDecorView().findViewById(android.R.id.content);
             rootView.setPadding(0, getStatusBarHeight(), 0, 0);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -61,8 +61,10 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
                 }
             }
         }
-        onActionBarViewCreated();
-        onActionBarViewClick();
+        if (initActionBar()){
+            onActionBarViewCreated();
+            onActionBarViewClick();
+        }
         initView();
         initListener();
     }
@@ -124,5 +126,9 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public boolean initActionBar(){
+        return true;
     }
 }

@@ -36,7 +36,7 @@ public class PhotoDeatilDialog extends BaseDialog implements View.OnClickListene
 
     @Override
     public void initData() {
-        PhotoUtil.loadLocalImage(mImageView,mUrl);
+        PhotoUtil.loadImageFromLocal(mImageView,mUrl);
     }
 
     @Override

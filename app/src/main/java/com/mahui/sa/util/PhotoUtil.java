@@ -22,21 +22,28 @@ import java.util.List;
  */
 
 public class PhotoUtil {
-
-    public static Bitmap getBitmap(String imageUrl){
-        Bitmap bitmap = BitmapFactory.decodeFile(imageUrl);
-        return bitmap;
-    }
-
-    public static void loadLocalImage(ImageView targetView , String imageUrl){
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
+    private static DisplayImageOptions options;
+    static {
+         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.drawable_loading)
                 .showImageOnFail(R.drawable.icon_error)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
+    }
+
+    public static Bitmap getBitmap(String imageUrl){
+        Bitmap bitmap = BitmapFactory.decodeFile(imageUrl);
+        return bitmap;
+    }
+
+    public static void loadImageFromLocal(ImageView targetView , String imageUrl){
         ImageLoader.getInstance().displayImage(ImageDownloader.Scheme.FILE.wrap(imageUrl),targetView,options);
+    }
+
+    public static void loadImageFromServer(ImageView targetView , String imageUrl){
+        ImageLoader.getInstance().displayImage(imageUrl,targetView,options);
     }
 
 

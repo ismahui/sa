@@ -11,7 +11,7 @@ import rx.schedulers.Schedulers;
 
 public class RxApi {
 
-    public static void execute(Observable<Object> observable,Subscriber<Object> subscriber) {
+    public static void execute(Observable observable,Subscriber subscriber) {
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

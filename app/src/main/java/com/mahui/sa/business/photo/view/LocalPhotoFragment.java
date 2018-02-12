@@ -100,7 +100,7 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
     public void showCheckBox(int position){
         for (int i = 0; i< mPhotoResponses.size(); i++){
             PhotoResponse photoResponse = mPhotoResponses.get(i);
-            photoResponse.isShow = true;
+            photoResponse.isShowCheckBox = true;
             if (i==position){
                 photoResponse.isChecked = true;
                 fileUrl.add(photoResponse.imageUrl);
@@ -115,7 +115,7 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
         }
         for (int i = 0; i< mPhotoResponses.size(); i++){
             PhotoResponse photoResponse = mPhotoResponses.get(i);
-            photoResponse.isShow = true;
+            photoResponse.isShowCheckBox = true;
             photoResponse.isChecked = true;
             fileUrl.add(photoResponse.imageUrl);
         }
@@ -128,7 +128,7 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
         }
         for (int i = 0; i< mPhotoResponses.size(); i++){
             PhotoResponse photoResponse = mPhotoResponses.get(i);
-            photoResponse.isShow = true;
+            photoResponse.isShowCheckBox = true;
             photoResponse.isChecked = false;
         }
         if (!fileUrl.isEmpty()){
@@ -140,7 +140,7 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
     public void hideCheckBox(){
         for (int i = 0; i< mPhotoResponses.size(); i++){
             PhotoResponse photoResponse = mPhotoResponses.get(i);
-            photoResponse.isShow = true;
+            photoResponse.isShowCheckBox = true;
             photoResponse.isChecked = false;
         }
     }
@@ -170,7 +170,7 @@ public class LocalPhotoFragment extends BaseFragment implements IPhotoView ,View
     }
 
 
-    private static class PhotoListViewAdapter extends RecyclerView.Adapter{
+    public static class PhotoListViewAdapter extends RecyclerView.Adapter{
         private List<PhotoResponse> mData;
         private Context mContext;
         public PhotoListViewAdapter(List<PhotoResponse> data , Context context){

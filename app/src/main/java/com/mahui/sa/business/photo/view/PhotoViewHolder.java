@@ -24,8 +24,12 @@ public class PhotoViewHolder extends BaseViewHolder {
     public void bindData(Object o, int position) {
         if (o instanceof PhotoResponse){
             PhotoResponse photoResponse = (PhotoResponse) o;
-            PhotoUtil.loadLocalImage(mImageView, photoResponse.imageUrl);
-            if (photoResponse.isShow){
+            if (photoResponse.isNative){
+                PhotoUtil.loadImageFromLocal(mImageView, photoResponse.imageUrl);
+            }else {
+                PhotoUtil.loadImageFromServer(mImageView,photoResponse.imageUrl);
+            }
+            if (photoResponse.isShowCheckBox){
                 mCheckBox.setVisibility(View.VISIBLE);
             }else {
                 mCheckBox.setVisibility(View.GONE);

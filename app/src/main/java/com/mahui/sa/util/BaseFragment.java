@@ -27,7 +27,9 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        initData();
+        if (!isNeedLazyLoad()){
+            initData();
+        }
         initListener();
     }
 
@@ -38,4 +40,18 @@ public abstract class BaseFragment extends Fragment {
     public abstract void initListener();
 
     public abstract void initData();
+
+    public  boolean isNeedLazyLoad(){
+        return false;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            if (isNeedLazyLoad()){
+                initData();
+            }
+        }
+    }
 }

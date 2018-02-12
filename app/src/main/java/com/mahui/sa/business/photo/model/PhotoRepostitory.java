@@ -1,12 +1,10 @@
 package com.mahui.sa.business.photo.model;
 
+
 import com.google.gson.Gson;
-import com.mahui.sa.util.OkHttpManager;
+import com.google.gson.reflect.TypeToken;
 
-import net.sf.json.JSONArray;
-
-
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -27,11 +25,20 @@ public class PhotoRepostitory {
             @Override
             public void call(Subscriber<? super List<PhotoResponse>> subscriber) {
                 try {
-                    String datas= OkHttpManager.getInstance().post(URL_GET_PHOT_FROME_SERVER,gson.toJson(photoRequest));
-                    List<PhotoResponse> photoResponses = (List<PhotoResponse>) JSONArray.toArray(JSONArray.fromObject(datas),PhotoResponse.class);
+                    //String datas= OkHttpManager.getInstance().post(URL_GET_PHOT_FROME_SERVER,gson.toJson(photoRequest));
+                    List<PhotoResponse> list = new ArrayList<>();
+                    for (int i=0;i<3;i++){
+                        PhotoResponse photoResponse = new PhotoResponse();
+                        photoResponse.imageUrl = "http://pic.sc.chinaz.com/files/pic/pic9/201410/apic6568.jpg";
+                        photoResponse.isNative = false;
+                        list.add(photoResponse);
+                    }
+                    String datas = gson.toJson(list);
+
+                    List<PhotoResponse> photoResponses = (List<PhotoResponse>) gson.fromJson(datas, new TypeToken<List<PhotoResponse>>() {}.getType());
                     subscriber.onNext(photoResponses);
                     subscriber.onCompleted();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

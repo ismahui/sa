@@ -1,8 +1,10 @@
 package com.mahui.sa.business.photo.presenter;
 
+import com.mahui.sa.business.photo.model.PhotoRepostitory;
 import com.mahui.sa.business.photo.model.PhotoResponse;
 import com.mahui.sa.business.photo.view.IPhotoView;
 import com.mahui.sa.util.PhotoUtil;
+import com.mahui.sa.util.RxApi;
 import com.mahui.sa.util.StateLayout;
 
 import java.util.List;
@@ -63,5 +65,28 @@ public class PhotoPresenter {
                     }
                 });
 
+    }
+
+    public void getPhotoFromServer(long userId, int page){
+        RxApi.execute(PhotoRepostitory.getPhotoFromServer(userId, page),new Subscriber<List<PhotoResponse>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+
+            @Override
+            public void onNext(List<PhotoResponse> photoResponses) {
+                if (photoResponses != null){
+                    if (mIPhotoView != null){
+                        mIPhotoView.updateList(photoResponses);
+                    }
+                }
+            }
+        });
     }
 }

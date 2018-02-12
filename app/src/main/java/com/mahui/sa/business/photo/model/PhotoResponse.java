@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class PhotoResponse implements Serializable {
     public String imageUrl;
-    public boolean isShow;
-    public boolean isChecked;
+    public boolean isShowCheckBox;//是否展示checkbox
+    public boolean isChecked;//是否选中
+    public boolean isNative = true;//图片是本地还是服务端
 }

@@ -5,14 +5,14 @@
              xmlns:app="http://schemas.android.com/apk/res-auto"
              android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
+    <com.mahui.sa.util.PagingRecycleView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/photo_list"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="20dp">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.mahui.sa.util.PagingRecycleView>
 
 
     <LinearLayout

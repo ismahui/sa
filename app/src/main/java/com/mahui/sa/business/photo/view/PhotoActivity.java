@@ -1,6 +1,5 @@
 package com.mahui.sa.business.photo.view;
 
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -88,10 +87,5 @@ public class PhotoActivity extends BaseActivity{
             return TITLE.length;
         }
 
-    }
-
-    @Override
-    public int initActionBarColor() {
-        return Color.BLUE;
     }
 }

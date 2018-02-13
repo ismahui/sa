@@ -12,6 +12,7 @@ import android.view.ViewGroup;
  */
 
 public abstract class BaseFragment extends Fragment {
+    private boolean isFirstLoad = true;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,8 @@ public abstract class BaseFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            if (isNeedLazyLoad()){
+            if (isNeedLazyLoad()&&isFirstLoad){
+                isFirstLoad = false;
                 initData();
             }
         }

@@ -18,7 +18,7 @@ import java.util.List;
  * Created by mahui on 2018/1/18.
  */
 
-public class RemotePhotoFragment extends BaseFragment implements IPhotoView {
+public class RemotePhotoFragment extends BaseFragment implements IPhotoView ,PagingRecycleView.IPageLoad {
     private StateLayout mStateLayout;
     private PagingRecycleView mPhotoListView;
     private PhotoPresenter mPhotoPresenter;
@@ -36,6 +36,7 @@ public class RemotePhotoFragment extends BaseFragment implements IPhotoView {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(),4);
         mPhotoListView.setLayoutManager(gridLayoutManager);
         mPhotoListViewAdapter = new LocalPhotoFragment.PhotoListViewAdapter(mPhotoResponses,this.getContext());
+        mPhotoListView.setIPageLoad(this);
         mPhotoListView.setAdapter(mPhotoListViewAdapter);
         mPhotoPresenter = new PhotoPresenter(this);
         changeState(StateLayout.State.LOADING);
@@ -69,5 +70,10 @@ public class RemotePhotoFragment extends BaseFragment implements IPhotoView {
     @Override
     public boolean isNeedLazyLoad() {
         return true;
+    }
+
+    @Override
+    public void loadNextPage(int page) {
+
     }
 }

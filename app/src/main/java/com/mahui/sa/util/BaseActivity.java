@@ -1,6 +1,5 @@
 package com.mahui.sa.util;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -111,7 +110,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     }
 
     public int initActionBarColor(){
-        return Color.WHITE;
+        return getResources().getColor(R.color.skyblue);
     }
 
     /**

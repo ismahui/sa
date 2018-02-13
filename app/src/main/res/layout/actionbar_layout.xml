@@ -21,6 +21,7 @@
                 android:layout_gravity="center"
                 android:drawableLeft="@drawable/icon_left_arrow"
                 android:text="返回"
+                android:textColor="@color/white"
                 android:gravity="center"
                 android:id="@+id/back"
                 android:padding="0dp"/>
@@ -32,6 +33,7 @@
             android:id="@+id/title"
             android:layout_centerInParent="true"
             android:text="标题"
+            android:textColor="@color/white"
             android:padding="0dp"/>
 
         <LinearLayout

@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.mahui.sa.R;
-import com.mahui.sa.business.photo.view.LocalPhotoFragment;
-import com.mahui.sa.business.photo.view.RemotePhotoFragment;
 import com.mahui.sa.util.BaseActivity;
 import com.viewpagerindicator.TabPageIndicator;
 
@@ -74,7 +72,7 @@ public class PhoneActivity extends BaseActivity {
             if (position == 0){
                 return new LocalPhoneFragment();
             } else  {
-                return new RemotePhotoFragment();
+                return new RemotePhoneFragment();
             }
         }
 
